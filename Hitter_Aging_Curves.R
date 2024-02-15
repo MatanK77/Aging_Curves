@@ -114,13 +114,13 @@ plot(age_curve_model_2015_wRC_plus, xlab = "Age", ylab = "Impact on wRC+", main 
   
 
   
-## Random effects wRC+ curve (test; runs slowly can skip)
+## Factor Smoothing wRC+ curve (test; runs slowly can skip)
 
 age_curve_model_2015_wRC_plus_RE <- gam(wRC_plus ~ s(Age) + s(PlayerId, bs="fs"), data=fg_pos_player_age_curve_2015, method="REML", weights=PA)
 
 summary(age_curve_model_2015_wRC_plus_RE)
 
-plot(age_curve_model_2015_wRC_plus_RE, xlab = "Age", ylab = "Impact on wRC+", main = "Aging Curve for wRC+ Since 2015 Random Effects",
+plot(age_curve_model_2015_wRC_plus_RE, xlab = "Age", ylab = "Impact on wRC+", main = "Aging Curve for wRC+ Since 2015 Factor Smoothing",
      xlim = c(20,40), ylim = c(-30, 10))
 
 # Adding a random PlayerId column (is irrelevant for predictions)
@@ -145,7 +145,7 @@ ggplot(long_age_range_2015, aes(x = Age, y = wRC_plus, color = PredictionType)) 
   geom_point() +
   scale_color_manual(values = c("predwRC_plus" = "Blue", "predwRC_plus_RE" = "Red"),
                      name = "Prediction Type",
-                     labels = c("predwRC_plus" = "wRC+ Aging Curve Career Mean", "predwRC_plus_RE" = "wRC+ Aging Curve Random Effect")) +
+                     labels = c("predwRC_plus" = "wRC+ Aging Curve Career Mean", "predwRC_plus_RE" = "wRC+ Aging Curve Factor Smoothing")) +
   xlim(c(20, 40)) +
   ylim(c(-30, 10)) +
   labs(x = "Age", y = "wRC+")
